@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:enabled="true"
+        android:title="Главная" />
+    <item
+        android:id="@+id/allFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_notes_24"
+        android:title="Все задания" />
+    <item
+        android:id="@+id/progressFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_sync_24"
+        android:title="В процесс" />
+
+    <item
+        android:id="@+id/fragmentDone"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_free_cancellation_24"
+        android:title="Выполненные" />
+
+</menu>

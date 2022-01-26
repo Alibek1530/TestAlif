@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="uz.ali.testalif.fragments.main.FragmentMain"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_editeFragment"
+            app:destination="@id/editeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/exit_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/exit_out_right"/>
+        <action
+            android:id="@+id/action_mainFragment_to_doneFragment"
+            app:destination="@id/createFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/exit_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/exit_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="uz.ali.testalif.fragments.create.FragmentCreate"
+        android:label="createFragment"
+        tools:layout="@layout/fragment_create" />
+    <fragment
+        android:id="@+id/allFragment"
+        android:name="uz.ali.testalif.fragments.all.FragmentAll"
+        android:label="allFragment"
+        tools:layout="@layout/fragment_all" />
+    <fragment
+        android:id="@+id/progressFragment"
+        android:name="uz.ali.testalif.fragments.progress.FragmentInProgress"
+        android:label="progressFragment"
+        tools:layout="@layout/fragment_in_progress" />
+
+    <fragment
+        android:id="@+id/fragmentDone"
+        android:name="uz.ali.testalif.fragments.done.FragmentDone"
+        android:label="fragmentDone"
+        tools:layout="@layout/fragment_done" />
+    <fragment
+        android:id="@+id/editeFragment"
+        android:name="uz.ali.testalif.fragments.create.FragmentCreate"
+        android:label="editeFragment"
+        tools:layout="@layout/fragment_create" />
+</navigation>
