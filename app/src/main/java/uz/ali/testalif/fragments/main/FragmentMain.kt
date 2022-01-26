@@ -4,11 +4,15 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -24,6 +28,17 @@ import uz.ali.testalif.db.pref.SharePref
 import uz.ali.testalif.dialogs.DialogLongClick
 import java.text.SimpleDateFormat
 import java.util.*
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.util.Base64.*
+import com.squareup.picasso.Callback
+import java.lang.Exception
+import java.lang.IllegalArgumentException
+import android.provider.MediaStore
+import android.os.ParcelFileDescriptor
+import androidx.core.net.toFile
+import java.io.*
+
 
 @AndroidEntryPoint
 class FragmentMain : Fragment() {
@@ -50,7 +65,7 @@ class FragmentMain : Fragment() {
         dateToday = getFormatTimeWithTZ("yyyy-MM-dd", Date(System.currentTimeMillis()))
 
         setDateData()
-        setImage()
+
 
         setRecycler()
 
@@ -60,7 +75,7 @@ class FragmentMain : Fragment() {
         binding.imageUser.setOnClickListener {
             setOpenImage()
         }
-
+        setImage()
     }
 
     fun setRecycler() {
@@ -70,11 +85,7 @@ class FragmentMain : Fragment() {
     }
 
     fun setRecData() {
-//        viewModel.getTasksTodayObserver(dateToday).observe(requireActivity(), {
-//            binding.Recycler.adapter = MainAdapter(getListTasks(it), this, posCheck)
-//        })
-
-        viewModel.getRecordsObserver().observe(requireActivity(), {
+        viewModel.getTasksTodayObserver(dateToday).observe(requireActivity(), {
             binding.Recycler.adapter = MainAdapter(getListTasks(it), this, posCheck)
 
             binding.taskCount.setText("${posCheck + 1}/${countTask} Задача сегодня")
@@ -163,7 +174,6 @@ class FragmentMain : Fragment() {
     }
 
     //image
-
     private fun setOpenImage() {
         if (requireActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -193,7 +203,11 @@ class FragmentMain : Fragment() {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     pickImageFromGalery()
                 } else {
-                    Toast.makeText(requireContext(), "Разрешить приложению доступ к фото", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Разрешить приложению доступ к фото",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -203,15 +217,25 @@ class FragmentMain : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             data?.data?.let {
-                pref.imageUri = it.toString()
-                setImage()
+                Picasso.get().load(it).transform(CropCircleTransformation())
+                    .into(binding.imageUser)
+
+                val openInputStream = activity?.contentResolver?.openInputStream(it)
+                val fileName = System.currentTimeMillis().toString()
+               val file = File(activity?.filesDir, "$fileName.jpg")
+
+                val fileOutputStream = FileOutputStream(file)
+                openInputStream?.copyTo(fileOutputStream)
+                openInputStream?.close()
+                pref.imageUri  = file.absolutePath
             }
         }
     }
 
     fun setImage() {
-        Picasso.get().load(pref.imageUri)
-            .transform(CropCircleTransformation())
-            .into(binding.imageUser)
+        if (pref.imageUri != "notImage") {
+            Picasso.get().load(File(pref.imageUri)).transform(CropCircleTransformation())
+                .into(binding.imageUser)
+        }
     }
 }

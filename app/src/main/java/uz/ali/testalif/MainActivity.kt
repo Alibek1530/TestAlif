@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity() {
 
     fun setNotification() {
         val name = "foxandroidReminderChannel"
-        val description = "Channel For Alarm Manager"
+        val description = "Alarm Manager"
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("foxandroid", name, importance)
+        val channel = NotificationChannel("alifandroid", name, importance)
         channel.description = description
         val notificationManager = getSystemService(NotificationManager::class.java)
 
@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setAlarm() {
-        Log.d("qwerty", "setAlarm:2 ${System.currentTimeMillis()}")
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
 
@@ -101,16 +100,6 @@ class MainActivity : AppCompatActivity() {
             1000 * 2 * 1,
             pendingIntent
         )
-    }
-
-    fun setCenselAlarm() {
-        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, AlarmReceiver::class.java)
-
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-
-        alarmManager.cancel(pendingIntent)
-        Toast.makeText(this, "cencel", Toast.LENGTH_SHORT).show()
     }
 
     fun setNavigationHidden(b: Boolean) {

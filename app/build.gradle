@@ -68,8 +68,6 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
-
     //bounce
-    //implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.factor:bouncy:1.8'
 }

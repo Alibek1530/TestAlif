@@ -11,10 +11,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ProgressViewModel @Inject constructor(private val repository:RoomRepository):ViewModel(){
 
-    fun getAllTaskObserver(): LiveData<List<TaskEntity>> {
-        return repository.getTaskAllDesc()
-    }
-
     fun getTasksTodayObserver(date:String): LiveData<List<TaskEntity>> {
         return repository.getTasksToday(date)
     }

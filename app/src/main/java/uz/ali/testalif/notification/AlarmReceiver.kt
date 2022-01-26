@@ -43,8 +43,6 @@ class  AlarmReceiver:BroadcastReceiver() {
         for (i in 0..pref.countTime-1){
             val alarmTime=pref.getTimeNotif(i)
             val status=pref.getStatuseNotif(i)
-            Log.d("qwerty", "onReceive: ${a}")
-
 
             if ((alarmTime>a) && (alarmTime<b) && (alarmTime!=0L) && status=="false"){
                 pref.addTimeNotif(i,0L)
@@ -74,7 +72,7 @@ class  AlarmReceiver:BroadcastReceiver() {
         val mChannel: NotificationChannel
         mChannel = NotificationChannel(
             CHANNEL_ID,
-            "foxandroid",
+            "alifandroid",
             NotificationManager.IMPORTANCE_HIGH
         )
         mChannel.lightColor = Color.GRAY
@@ -93,7 +91,7 @@ class  AlarmReceiver:BroadcastReceiver() {
         )
         status.setAutoCancel(true)
             .setWhen(System.currentTimeMillis())
-            .setSmallIcon(R.drawable.ic_baseline_access_alarm_24) //.setOnlyAlertOnce(true)
+            .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
             .setContentTitle(title)
             .setContentText("За ${beforeMin} минут до")
             .setVibrate(longArrayOf(100, 200, 500, 400, 700, 400, 300))

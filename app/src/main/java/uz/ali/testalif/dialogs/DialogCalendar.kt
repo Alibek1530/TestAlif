@@ -35,7 +35,6 @@ class DialogCalendar(val createFragment: FragmentCreate) : BottomSheetDialogFrag
         binding.Calendar.setOnDateChangeListener { calendarView, i, i2, i3 ->
            val calendarDate = "${i2 + 1} ${i3}, ${i}"
 
-
             val spf = SimpleDateFormat("MM dd, yyyy", Locale("RU"))
             val newDate: Date = spf.parse(calendarDate)
 

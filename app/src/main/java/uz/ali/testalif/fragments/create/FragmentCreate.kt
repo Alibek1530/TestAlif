@@ -172,7 +172,6 @@ class FragmentCreate : Fragment() {
                 this.status = it.status
 
                 binding.TextDate.setText(setDateFormat(it.date))
-                //binding.TextDate.setText(it.date)
                 this.dateMilli = it.dateMilli
 
                 binding.TextTime.setText(it.time)
