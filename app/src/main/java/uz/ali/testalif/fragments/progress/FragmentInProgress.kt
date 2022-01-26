@@ -52,7 +52,7 @@ class FragmentInProgress : Fragment() {
         viewModel.getTasksTodayObserver(dateToday).observe(requireActivity(), {
             binding.Recycler.adapter = ItemsAdapter(getSortProgress(it))
 
-            binding.taskCount.setText("${it.size} Задача")
+            binding.taskCount.setText("1 Задача")
         })
     }
 
